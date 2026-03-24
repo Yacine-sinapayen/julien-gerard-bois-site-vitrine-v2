@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond arrondi -->
+  <rect width="64" height="64" rx="16" fill="#FFFFFF"/>
+  <!-- Cercle -->
+  <circle cx="32" cy="32" r="28" stroke="#4A2E14" stroke-width="0.8" opacity="0.85"/>
+  <!-- Texte JULIEN GÉRARD BOIS -->
+  <text x="32" y="29" text-anchor="middle"
+    font-family="Georgia, serif"
+    font-size="5.2" font-weight="600" letter-spacing="0.5"
+    fill="#4A2E14">JULIEN GÉRARD BOIS</text>
+  <!-- Ligne séparatrice -->
+  <line x1="12" y1="33" x2="52" y2="33" stroke="#4A2E14" stroke-width="0.5" opacity="0.5"/>
+  <!-- Texte BORDEAUX -->
+  <text x="32" y="40" text-anchor="middle"
+    font-family="Georgia, serif"
+    font-size="5.5" font-weight="400" letter-spacing="2"
+    fill="#4A2E14">BORDEAUX</text>
+</svg>

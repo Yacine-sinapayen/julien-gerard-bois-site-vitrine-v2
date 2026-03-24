@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="44" height="44" rx="8" fill="#2C1A08"/>
+
+  <!-- TL block — lames horizontales (ton clair) -->
+  <rect x="3"    y="3.75"  width="18" height="5"  rx="0.5" fill="#DDAB72"/>
+  <rect x="3"    y="9.5"   width="18" height="5"  rx="0.5" fill="#C89060"/>
+  <rect x="3"    y="15.25" width="18" height="5"  rx="0.5" fill="#DDAB72"/>
+
+  <!-- TR block — lames verticales (ton sombre) -->
+  <rect x="23.75" y="3"    width="5"  height="18" rx="0.5" fill="#9A6030"/>
+  <rect x="29.5"  y="3"    width="5"  height="18" rx="0.5" fill="#B07848"/>
+  <rect x="35.25" y="3"    width="5"  height="18" rx="0.5" fill="#9A6030"/>
+
+  <!-- BL block — lames verticales (ton sombre) -->
+  <rect x="3.75"  y="23"   width="5"  height="18" rx="0.5" fill="#9A6030"/>
+  <rect x="9.5"   y="23"   width="5"  height="18" rx="0.5" fill="#B07848"/>
+  <rect x="15.25" y="23"   width="5"  height="18" rx="0.5" fill="#9A6030"/>
+
+  <!-- BR block — lames horizontales (ton clair) -->
+  <rect x="23"   y="23.75" width="18" height="5"  rx="0.5" fill="#DDAB72"/>
+  <rect x="23"   y="29.5"  width="18" height="5"  rx="0.5" fill="#C89060"/>
+  <rect x="23"   y="35.25" width="18" height="5"  rx="0.5" fill="#DDAB72"/>
+</svg>

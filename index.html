@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Julien Gérard Bois — Artisan Parqueteur · Bordeaux</title>
+  <meta name="description" content="Artisan parqueteur et menuisier à Bordeaux depuis 20 ans. Pose, rénovation et fabrication sur-mesure de parquets en bois massif." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory:    #F7F3EE;
+      --white:    #FFFFFF;
+      --oak:      #8B6340;
+      --oak-deep: #4A2E14;
+      --bark:     #201812;
+      --sand:     #C9AB87;
+      --warm:     #EDE4D8;
+      --muted:    #A09088;
+      --line:     rgba(139,99,64,.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--ivory);
+      color: var(--bark);
+      overflow-x: hidden;
+    }
+
+    /* ── LOGO SVG ─────────────────────────────────── */
+    .logo-circle {
+      display: inline-block;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem clamp(1.5rem, 6vw, 5rem);
+      transition: background .4s, box-shadow .4s;
+    }
+    nav.scrolled {
+      background: rgba(247,243,238,.96);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 1px 0 var(--line);
+    }
+    nav.menu-open {
+      background: rgba(247,243,238,1);
+      box-shadow: 0 1px 0 var(--line);
+    }
+
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: .72rem; font-weight: 500;
+      color: var(--bark);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--oak); }
+
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .6rem 1.5rem;
+      background: var(--oak-deep);
+      color: var(--white) !important;
+      font-size: .72rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 1px;
+      transition: background .25s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--oak); transform: translateY(-1px); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px;
+      background: var(--bark);
+      transition: .3s;
+    }
+
+    /* ── HERO ─────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px clamp(2rem, 6vw, 5rem) 4rem clamp(1.5rem, 6vw, 5rem);
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .8rem;
+      font-size: .7rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--oak);
+      margin-bottom: 2rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block; width: 32px; height: 1px;
+      background: var(--oak);
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 5.5vw, 5.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--bark);
+      margin-bottom: 1.8rem;
+      letter-spacing: -.01em;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--oak);
+      font-weight: 300;
+    }
+
+    .hero-sub {
+      font-size: 1rem; font-weight: 300;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 420px;
+      margin-bottom: 2.8rem;
+    }
+
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .9rem 2.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .75rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 1px;
+      transition: all .25s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--oak-deep);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--oak);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--bark);
+      border: 1px solid rgba(32,24,18,.25);
+    }
+    .btn-outline:hover {
+      border-color: var(--bark);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--line);
+    }
+    .hero-stat {}
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 500;
+      color: var(--oak-deep);
+      line-height: 1;
+      display: block;
+    }
+    .stat-label {
+      font-size: .68rem; font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: .3rem;
+    }
+
+    /* Hero right: réalisations gallery */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: var(--ivory);
+    }
+
+    /* Slideshow */
+    .hero-gallery {
+      position: absolute; inset: 0;
+      display: flex;
+    }
+    .hero-slide {
+      position: absolute; inset: 0;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-slide-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2.5rem 2rem 1.8rem;
+      background: linear-gradient(to top, rgba(32,24,18,.65) 0%, transparent 100%);
+      z-index: 2;
+    }
+    .hero-slide-label span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,.92);
+      letter-spacing: .02em;
+    }
+
+    /* Dots navigation */
+    .hero-gallery-dots {
+      position: absolute;
+      bottom: 1.4rem; right: 1.8rem;
+      display: flex; gap: .5rem;
+      z-index: 3;
+    }
+    .hero-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.4);
+      border: none; cursor: pointer; padding: 0;
+      transition: background .3s, transform .3s;
+    }
+    .hero-dot.active {
+      background: var(--white);
+      transform: scale(1.3);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      z-index: 2;
+    }
+    .scroll-hint span {
+      font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .scroll-arrow {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--oak), transparent);
+      animation: scrollAnim 2s ease-in-out infinite;
+    }
+    @keyframes scrollAnim {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(.7); opacity: .5; }
+    }
+
+    /* ── BANNER STRIP ─────────────────────────────── */
+    .strip {
+      background: var(--oak-deep);
+      padding: 1.1rem clamp(1.5rem, 6vw, 5rem);
+      display: flex; align-items: center; gap: 3rem;
+      overflow: hidden;
+    }
+    .strip-item {
+      display: inline-flex; align-items: center; gap: .75rem;
+      flex-shrink: 0;
+      font-size: .72rem; font-weight: 400;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(249,246,241,.7);
+    }
+    .strip-item strong { color: var(--white); font-weight: 500; }
+    .strip-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--sand); opacity: .5;
+      flex-shrink: 0;
+    }
+
+    /* ── SECTION BASE ─────────────────────────────── */
+    .section-label {
+      display: inline-flex; align-items: center; gap: .75rem;
+      font-size: .68rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--oak);
+      margin-bottom: 1.2rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block; width: 28px; height: 1px;
+      background: var(--oak);
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: -.01em;
+      color: var(--bark);
+      margin-bottom: 1.2rem;
+    }
+    h2 em { font-style: italic; color: var(--oak); font-weight: 300; }
+
+    .section-intro {
+      font-size: .95rem; font-weight: 300; line-height: 1.8;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    /* ── SERVICES ─────────────────────────────────── */
+    #services {
+      padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+      background: var(--white);
+    }
+    .services-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 5rem;
+      gap: 2rem; flex-wrap: wrap;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+    .service-item {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      transition: background .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-item::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--oak-deep), var(--sand));
+      transition: width .5s ease;
+    }
+    .service-item:hover { background: var(--ivory); }
+    .service-item:hover::before { width: 100%; }
+
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300;
+      color: rgba(139,99,64,.15);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .service-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 500;
+      color: var(--bark);
+      margin-bottom: .75rem;
+    }
+    .service-item p {
+      font-size: .875rem; font-weight: 300; line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .service-tags {
+      display: flex; flex-wrap: wrap; gap: .4rem;
+    }
+    .service-tag {
+      font-size: .65rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--oak);
+      padding: .25rem .7rem;
+      border: 1px solid rgba(139,99,64,.25);
+      border-radius: 1px;
+    }
+
+    /* ── PROCESS ──────────────────────────────────── */
+    #process {
+      padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+      background: var(--bark);
+    }
+    #process .section-label { color: var(--sand); }
+    #process .section-label::before { background: var(--sand); }
+    #process h2 { color: var(--ivory); }
+    #process .section-intro { color: rgba(247,243,238,.5); }
+    .process-head { margin-bottom: 5rem; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .step {
+      padding: 2.5rem 2rem 2rem 0;
+      border-right: 1px solid rgba(255,255,255,.06);
+    }
+    .step:last-child { border-right: none; }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 300;
+      color: rgba(201,171,135,.2);
+      line-height: 1;
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+    .step h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 500;
+      color: var(--ivory);
+      margin-bottom: .6rem;
+    }
+    .step p {
+      font-size: .82rem; font-weight: 300; line-height: 1.7;
+      color: rgba(247,243,238,.45);
+    }
+
+    /* ── PORTFOLIO ─────────────────────────────────── */
+    #portfolio {
+      padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+      background: var(--ivory);
+    }
+    .portfolio-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .arsia-embed {
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .arsia-embed iframe { display: block; }
+    .portfolio-cta { margin-top: 2.5rem; text-align: center; }
+
+    /* ── MATERIALS ─────────────────────────────────── */
+    #materials {
+      padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+      background: var(--white);
+    }
+    .materials-head { margin-bottom: 3.5rem; }
+
+    .materials-row {
+      display: flex; gap: 0;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .material-item {
+      flex: 1;
+      padding: 2.5rem 1.5rem;
+      border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+      transition: background .3s;
+      cursor: default;
+    }
+    .material-item:last-child { border-right: none; }
+    .material-item:hover { background: var(--ivory); }
+
+    .swatch {
+      width: 52px; height: 52px; border-radius: 50%;
+      box-shadow: 0 4px 16px rgba(32,24,18,.12);
+    }
+    .sw-chene   { background: radial-gradient(circle at 35% 35%, #DDB880, #8B5E3C); }
+    .sw-noyer   { background: radial-gradient(circle at 35% 35%, #7A4E2A, #3D2010); }
+    .sw-frene   { background: radial-gradient(circle at 35% 35%, #F0D8AA, #C4996A); }
+    .sw-merisier{ background: radial-gradient(circle at 35% 35%, #B06040, #7A3820); }
+    .sw-bambou  { background: radial-gradient(circle at 35% 35%, #DDD09A, #9B8E50); }
+    .sw-wenge   { background: radial-gradient(circle at 35% 35%, #4D3525, #1A0E08); }
+
+    .material-item strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 500;
+      color: var(--bark);
+    }
+    .material-item small {
+      font-size: .68rem; font-weight: 400;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-align: center; line-height: 1.5;
+    }
+
+    /* ── ABOUT ─────────────────────────────────────── */
+    #about {
+      padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+      background: var(--warm);
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: clamp(3rem, 6vw, 8rem);
+      align-items: center;
+    }
+
+    .about-visual-wrap {
+      position: relative;
+    }
+    .about-visual {
+      aspect-ratio: 4/5;
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+    .about-visual-bg {
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(91deg, rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px, transparent 1px, transparent 18px),
+        linear-gradient(160deg, #9B6B3A 0%, #5C3D1E 40%, #8B5E3C 80%, #C4996A 100%);
+    }
+    .about-frame {
+      position: absolute;
+      top: 2rem; left: 2rem; right: -1.5rem; bottom: -1.5rem;
+      border: 1px solid var(--oak);
+      border-radius: 2px;
+      z-index: -1;
+      opacity: .4;
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -1.5rem; right: -1.5rem;
+      background: var(--oak-deep);
+      color: var(--white);
+      padding: 1.2rem 1.5rem;
+      border-radius: 2px;
+      z-index: 2;
+    }
+    .about-badge strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 500;
+      line-height: 1;
+    }
+    .about-badge span {
+      font-size: .65rem; font-weight: 400;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--sand);
+      margin-top: .3rem;
+      display: block;
+    }
+
+    .about-content .section-label { margin-bottom: 1rem; }
+    .about-content h2 { margin-bottom: 1.5rem; }
+    .about-content p {
+      font-size: .95rem; font-weight: 300; line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .about-values {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--line);
+    }
+    .about-value {}
+    .about-value h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 500;
+      color: var(--bark);
+      margin-bottom: .35rem;
+    }
+    .about-value p {
+      font-size: .8rem; font-weight: 300; line-height: 1.6;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── TESTIMONIALS ──────────────────────────────── */
+    #testimonials {
+      padding: clamp(5rem, 8vw, 8rem) 0;
+      background: var(--ivory);
+      overflow: hidden;
+    }
+    .testi-header {
+      padding: 0 clamp(1.5rem, 6vw, 5rem);
+      margin-bottom: 4rem;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 2rem;
+    }
+
+    .testi-track-outer {
+      position: relative;
+      overflow: hidden;
+    }
+    .testi-track-outer::before,
+    .testi-track-outer::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 100px;
+      z-index: 2; pointer-events: none;
+    }
+    .testi-track-outer::before {
+      left: 0;
+      background: linear-gradient(to right, var(--ivory), transparent);
+    }
+    .testi-track-outer::after {
+      right: 0;
+      background: linear-gradient(to left, var(--ivory), transparent);
+    }
+
+    .testi-track {
+      display: flex; gap: 1.5rem;
+      animation: marquee 35s linear infinite;
+      width: max-content;
+      padding: 0 clamp(1.5rem, 6vw, 5rem);
+    }
+    .testi-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .testi-card {
+      width: 360px; flex-shrink: 0;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 2.5rem 2rem;
+    }
+    .testi-stars {
+      display: flex; gap: 3px; margin-bottom: 1.2rem;
+    }
+    .testi-stars span {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--oak);
+      display: block;
+    }
+    .testi-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-style: italic; font-weight: 400;
+      line-height: 1.7;
+      color: var(--bark);
+      margin-bottom: 1.8rem;
+    }
+    .testi-author {
+      display: flex; align-items: center; gap: .75rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--line);
+    }
+    .testi-initials {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--warm);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 500;
+      color: var(--oak-deep);
+      flex-shrink: 0;
+    }
+    .testi-author strong {
+      display: block; font-size: .82rem; font-weight: 500;
+      color: var(--bark);
+    }
+    .testi-author span { font-size: .72rem; color: var(--muted); }
+
+    /* ── CONTACT ───────────────────────────────────── */
+    #contact {
+      padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: clamp(3rem, 6vw, 8rem);
+      align-items: start;
+    }
+
+    .contact-info .section-label { margin-bottom: 1rem; }
+    .contact-info h2 { margin-bottom: 1.2rem; }
+    .contact-info > p {
+      font-size: .95rem; font-weight: 300; line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 3rem;
+    }
+
+    .contact-items { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .contact-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .citem-line {
+      width: 1px; height: 40px; flex-shrink: 0;
+      background: var(--oak);
+      margin-top: .1rem;
+    }
+    .contact-item strong {
+      display: block; font-size: .7rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .35rem;
+    }
+    .contact-item a,
+    .contact-item span {
+      font-size: .95rem; font-weight: 400;
+      color: var(--bark); text-decoration: none;
+    }
+    .contact-item a:hover { color: var(--oak); }
+
+    .contact-form-wrap {
+      background: var(--ivory);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      padding: 3rem;
+    }
+    .contact-form-wrap h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 500;
+      color: var(--bark);
+      margin-bottom: 2rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block;
+      font-size: .65rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: .85rem 1rem;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 1px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .875rem; font-weight: 300;
+      color: var(--bark);
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--oak);
+      box-shadow: 0 0 0 3px rgba(139,99,64,.08);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit { width: 100%; justify-content: center; margin-top: .5rem; }
+
+    .form-success {
+      display: none; text-align: center; padding: 3rem 1rem;
+    }
+    .form-success h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 500;
+      color: var(--oak-deep);
+      margin-bottom: .75rem;
+    }
+    .form-success p { font-size: .875rem; color: var(--muted); }
+    .form-success .success-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--oak-deep);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      color: var(--white); font-size: 1.2rem;
+    }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    footer {
+      background: var(--bark);
+      padding: 5rem clamp(1.5rem, 6vw, 5rem) 2.5rem;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-brand p {
+      font-size: .85rem; font-weight: 300; line-height: 1.8;
+      color: rgba(247,243,238,.4);
+      max-width: 260px;
+      margin-top: 1.5rem;
+    }
+    .footer-socials {
+      display: flex; gap: .5rem; margin-top: 2rem;
+    }
+    .social-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,.06);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; color: rgba(247,243,238,.5);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.08);
+      transition: all .25s;
+    }
+    .social-btn:hover {
+      background: var(--oak);
+      border-color: var(--oak);
+      color: var(--white);
+    }
+    .footer-col h4 {
+      font-size: .65rem; font-weight: 500;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(247,243,238,.35);
+      margin-bottom: 1.5rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: .7rem; }
+    .footer-col ul a {
+      text-decoration: none;
+      font-size: .85rem; font-weight: 300;
+      color: rgba(247,243,238,.55);
+      transition: color .2s;
+    }
+    .footer-col ul a:hover { color: var(--sand); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 2.5rem;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p {
+      font-size: .72rem; font-weight: 300;
+      color: rgba(247,243,238,.25);
+    }
+    .footer-bottom a { color: var(--sand); text-decoration: none; }
+
+    /* ── BACK TO TOP ───────────────────────────────── */
+    .back-top {
+      position: fixed; bottom: 2rem; right: 2rem;
+      width: 42px; height: 42px;
+      background: var(--oak-deep);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(74,46,20,.4);
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s, transform .3s;
+      z-index: 50;
+    }
+    .back-top.visible { opacity: 1; pointer-events: all; }
+    .back-top:hover { transform: translateY(-3px); }
+
+    /* ── REVEAL ANIMATIONS ─────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .steps { grid-template-columns: repeat(3, 1fr); }
+      .step:nth-child(3) { border-right: none; }
+      .step:nth-child(4), .step:nth-child(5) {
+        border-top: 1px solid rgba(255,255,255,.06);
+      }
+      .materials-row { flex-wrap: wrap; }
+      .material-item { flex: 1 1 30%; }
+    }
+
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { height: 60vw; min-height: 340px; }
+      .hero-logo-wrap { bottom: 2rem; left: 2rem; }
+      #about { grid-template-columns: 1fr; }
+      .about-visual-wrap { order: -1; }
+      .about-frame { display: none; }
+      #contact { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; inset: 68px 0 0;
+        background: var(--ivory);
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+        border-top: 1px solid var(--line);
+        z-index: 99;
+        height: calc(100vh - 68px);
+      }
+      .nav-links.open a { font-size: .9rem; }
+      .steps { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); padding: 2rem 0; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .about-values { grid-template-columns: 1fr; }
+      .strip { gap: 2rem; }
+      .materials-row { flex-direction: column; }
+      .material-item { flex: 1 1 100%; flex-direction: row; gap: 1.5rem; padding: 1.5rem; }
+      .material-item small { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="logo-circle" aria-label="Julien Gérard Bois">
+    <svg width="52" height="52" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="57" stroke="#201812" stroke-width="1.2"/>
+      <text x="60" y="55" text-anchor="middle"
+        font-family="Cormorant Garamond, Georgia, serif"
+        font-size="9.5" font-weight="500" letter-spacing="0.8" textLength="88" lengthAdjust="spacingAndGlyphs" fill="#201812">JULIEN GÉRARD BOIS</text>
+      <line x1="24" y1="63" x2="96" y2="63" stroke="#201812" stroke-width=".8" opacity=".4"/>
+      <text x="60" y="76" text-anchor="middle"
+        font-family="Cormorant Garamond, Georgia, serif"
+        font-size="10" font-weight="400" letter-spacing="3.5" fill="#201812">BORDEAUX</text>
+    </svg>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Réalisations</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#testimonials">Avis</a></li>
+    <li><a href="#contact" class="nav-cta">Devis gratuit</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Artisan depuis 2004</p>
+    <h1>L'art du bois,<br><em>sublimé</em><br>chez vous</h1>
+    <p class="hero-sub">Pose, rénovation et fabrication sur-mesure de parquets en bois massif à Bordeaux. Chaque lame posée à la main pour un résultat qui durera des générations.</p>
+    <div class="btn-group">
+      <a href="#contact" class="btn btn-primary">Demander un devis</a>
+      <a href="#portfolio" class="btn btn-outline">Voir les réalisations</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-num">20+</span>
+        <span class="stat-label">Ans d'expérience</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-num">850</span>
+        <span class="stat-label">Chantiers réalisés</span>
+      </div>
+      <div class="hero-stat">
+        <span class="stat-num">4.9</span>
+        <span class="stat-label">Note moyenne</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-gallery" id="heroGallery">
+      <div class="hero-slide active">
+        <img src="images/realisation-1.png" alt="Pose de parquet point de Hongrie" />
+        <div class="hero-slide-label"><span>Pose de parquet point de Hongrie</span></div>
+      </div>
+      <div class="hero-slide">
+        <img src="images/realisation-2.png" alt="Parquet en chevron — salon contemporain" />
+        <div class="hero-slide-label"><span>Parquet en chevron — salon contemporain</span></div>
+      </div>
+      <div class="hero-slide">
+        <img src="images/realisation-3.png" alt="Rénovation d'escalier en bois" />
+        <div class="hero-slide-label"><span>Rénovation d'escalier en bois</span></div>
+      </div>
+      <div class="hero-slide">
+        <img src="images/realisation-4.png" alt="Rénovation de parquet ancien" />
+        <div class="hero-slide-label"><span>Rénovation de parquet ancien</span></div>
+      </div>
+    </div>
+    <div class="hero-gallery-dots" id="heroDots">
+      <button class="hero-dot active" data-index="0"></button>
+      <button class="hero-dot" data-index="1"></button>
+      <button class="hero-dot" data-index="2"></button>
+      <button class="hero-dot" data-index="3"></button>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Défiler</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><strong>Maître Artisan</strong></div>
+  <div class="strip-dot"></div>
+  <div class="strip-item"><strong>Compagnon du Tour de France</strong></div>
+  <div class="strip-dot"></div>
+  <div class="strip-item"><strong>Garantie Décennale</strong></div>
+  <div class="strip-dot"></div>
+  <div class="strip-item"><strong>Bois certifiés PEFC</strong></div>
+  <div class="strip-dot"></div>
+  <div class="strip-item"><strong>Devis gratuit sous 48h</strong></div>
+  <div class="strip-dot"></div>
+  <div class="strip-item"><strong>Bordeaux &amp; Gironde</strong></div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-head reveal">
+    <div>
+      <p class="section-label">Ce que je fais</p>
+      <h2>Des prestations<br><em>sur-mesure</em></h2>
+    </div>
+    <p class="section-intro" style="max-width:380px">Du conseil jusqu'à la finition, chaque projet est traité avec le même soin du détail et la même passion pour le bois noble.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-item reveal">
+      <span class="service-num">01</span>
+      <h3>Pose de Parquet</h3>
+      <p>Installation de parquets massifs, contrecollés ou stratifiés avec les techniques traditionnelles ou flottantes. Chaque chantier commence par une analyse précise de votre support.</p>
+      <div class="service-tags">
+        <span class="service-tag">Massif cloué</span>
+        <span class="service-tag">Point de Hongrie</span>
+        <span class="service-tag">Bâtons rompus</span>
+        <span class="service-tag">Chevrons</span>
+      </div>
+    </div>
+    <div class="service-item reveal">
+      <span class="service-num">02</span>
+      <h3>Vitrification &amp; Finitions</h3>
+      <p>Traitement et protection de vos parquets pour une beauté et une durabilité maximales. Ponçage, teinture, huilage ou vitrification — je vous conseille selon l'usage et le style.</p>
+      <div class="service-tags">
+        <span class="service-tag">Vitrification</span>
+        <span class="service-tag">Huilage naturel</span>
+        <span class="service-tag">Teinture</span>
+        <span class="service-tag">Rénovation</span>
+      </div>
+    </div>
+    <div class="service-item reveal">
+      <span class="service-num">03</span>
+      <h3>Aménagement Sur-Mesure</h3>
+      <p>Conception et réalisation de mobilier et aménagements en bois adaptés à vos espaces. Chaque pièce est unique, pensée pour s'intégrer parfaitement à votre intérieur.</p>
+      <div class="service-tags">
+        <span class="service-tag">Dressings</span>
+        <span class="service-tag">Bibliothèques</span>
+        <span class="service-tag">Cuisines</span>
+        <span class="service-tag">Mobilier bespoke</span>
+      </div>
+    </div>
+    <div class="service-item reveal">
+      <span class="service-num">04</span>
+      <h3>Menuiserie Intérieure</h3>
+      <p>Fabrication et pose de menuiseries intérieures haut de gamme. De la conception sur plans jusqu'au produit fini, tout est réalisé en atelier puis posé avec soin.</p>
+      <div class="service-tags">
+        <span class="service-tag">Escaliers</span>
+        <span class="service-tag">Portes</span>
+        <span class="service-tag">Moulures</span>
+        <span class="service-tag">Lambris</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-head reveal">
+    <p class="section-label">Comment ça marche</p>
+    <h2>Un processus <em>clair</em><br>de A à Z</h2>
+  </div>
+
+  <div class="steps">
+    <div class="step reveal">
+      <span class="step-num">01</span>
+      <h3>Prise de contact</h3>
+      <p>Échangeons sur votre projet par téléphone ou via le formulaire. Première consultation gratuite et sans engagement.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">02</span>
+      <h3>Visite &amp; devis</h3>
+      <p>Je me déplace sur site pour évaluer les travaux, prendre les mesures et vous soumettre un devis détaillé sous 48h.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">03</span>
+      <h3>Choix des matériaux</h3>
+      <p>Sélection des essences de bois, des finitions et des motifs de pose selon votre style et votre budget.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">04</span>
+      <h3>Réalisation</h3>
+      <p>Intervention soignée dans le respect des délais. Votre domicile est protégé et laissé propre chaque soir.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">05</span>
+      <h3>Réception &amp; garantie</h3>
+      <p>Visite finale avec vous pour valider les finitions. Garantie décennale sur tous mes travaux.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="portfolio-head reveal">
+    <div>
+      <p class="section-label">Réalisations</p>
+      <h2>Du bois qui<br><em>raconte</em> une histoire</h2>
+    </div>
+    <p class="section-intro" style="max-width:380px">Chaque chantier est unique. Voici quelques-unes de mes réalisations récentes à Bordeaux et en Gironde.</p>
+  </div>
+
+  <div class="arsia-embed reveal">
+    <iframe src="https://arsia-app.vercel.app/embed/user/69b04f319972c86d6da613d7" width="100%" height="700px" frameborder="0" style="border:none;"></iframe>
+  </div>
+  <div class="portfolio-cta reveal">
+    <a href="#contact" class="btn btn-primary">Discuter de votre projet</a>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section id="materials">
+  <div class="materials-head reveal">
+    <p class="section-label">Essences de bois</p>
+    <h2>Une sélection <em>noble</em></h2>
+    <p class="section-intro" style="margin-top:.75rem">Je travaille exclusivement avec des bois de première qualité, sourcés auprès de scieries françaises et européennes responsables.</p>
+  </div>
+
+  <div class="materials-row reveal">
+    <div class="material-item">
+      <div class="swatch sw-chene"></div>
+      <strong>Chêne</strong>
+      <small>La référence intemporelle</small>
+    </div>
+    <div class="material-item">
+      <div class="swatch sw-noyer"></div>
+      <strong>Noyer</strong>
+      <small>Chaleur &amp; élégance</small>
+    </div>
+    <div class="material-item">
+      <div class="swatch sw-frene"></div>
+      <strong>Frêne</strong>
+      <small>Lumineux &amp; solide</small>
+    </div>
+    <div class="material-item">
+      <div class="swatch sw-merisier"></div>
+      <strong>Merisier</strong>
+      <small>Douceur naturelle</small>
+    </div>
+    <div class="material-item">
+      <div class="swatch sw-bambou"></div>
+      <strong>Bambou</strong>
+      <small>Éco &amp; ultra-résistant</small>
+    </div>
+    <div class="material-item">
+      <div class="swatch sw-wenge"></div>
+      <strong>Wengé</strong>
+      <small>Design affirmé</small>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual-wrap reveal">
+    <div class="about-visual">
+      <div class="about-visual-bg"></div>
+    </div>
+    <div class="about-frame"></div>
+    <div class="about-badge">
+      <strong>20+</strong>
+      <span>Ans d'expérience</span>
+    </div>
+  </div>
+
+  <div class="about-content reveal">
+    <p class="section-label">À propos</p>
+    <h2>Passion du bois,<br>depuis <em>toujours</em></h2>
+    <p>Je suis Julien Gérard, artisan parqueteur-menuisier installé à Bordeaux depuis 2004. Compagnon du Tour de France, j'ai perfectionné mon art auprès des meilleurs ateliers européens avant de créer ma propre structure.</p>
+    <p>Mon approche est simple : écouter votre projet, choisir les matériaux avec vous, et réaliser un travail dont vous serez fier pendant des décennies. Chaque intervention est unique et traitée avec la même rigueur artisanale.</p>
+    <div class="about-values">
+      <div class="about-value">
+        <h4>Éco-responsable</h4>
+        <p>Bois certifiés PEFC, finitions naturelles, chutes valorisées.</p>
+      </div>
+      <div class="about-value">
+        <h4>Respect des délais</h4>
+        <p>Planning rigoureux et communication transparente tout au long.</p>
+      </div>
+      <div class="about-value">
+        <h4>Précision millimétrée</h4>
+        <p>Mesures sur site, coupes ajustées et finitions irréprochables.</p>
+      </div>
+      <div class="about-value">
+        <h4>Un seul interlocuteur</h4>
+        <p>Moi du début à la fin. Pas de sous-traitance, pas de surprise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testi-header reveal">
+    <div>
+      <p class="section-label">Témoignages</p>
+      <h2>Ce que disent<br><em>mes clients</em></h2>
+    </div>
+    <p class="section-intro" style="max-width:340px">Plus de 850 familles m'ont fait confiance pour habiller leurs sols et leurs intérieurs.</p>
+  </div>
+
+  <div class="testi-track-outer">
+    <div class="testi-track" id="testiTrack">
+      <div class="testi-card">
+        <div class="testi-stars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="testi-text">« Julien a transformé notre appartement bordelais. Le parquet en point de Hongrie est absolument magnifique. Un travail méticuleux, des délais respectés à la lettre. »</p>
+        <div class="testi-author">
+          <div class="testi-initials">SL</div>
+          <div>
+            <strong>Sophie L.</strong>
+            <span>Bordeaux — Appartement 120m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="testi-text">« Escalier en noyer massif sur-mesure. Je n'aurais jamais cru un résultat aussi beau possible. Julien est un vrai artiste. Je le recommande à tous mes proches. »</p>
+        <div class="testi-author">
+          <div class="testi-initials">PM</div>
+          <div>
+            <strong>Pierre M.</strong>
+            <span>Mérignac — Maison individuelle</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="testi-text">« Rénovation complète du parquet de notre maison. Ponçage, teinture et vitrification impeccables. Le bois semblait neuf mais conservait tout son caractère. »</p>
+        <div class="testi-author">
+          <div class="testi-initials">CB</div>
+          <div>
+            <strong>Claire B.</strong>
+            <span>Pessac — Maison 180m²</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="testi-text">« Dressing et bibliothèque en chêne massif. Tout est parfaitement intégré, les finitions sont irréprochables. Un artisan sérieux qui mérite vraiment sa réputation. »</p>
+        <div class="testi-author">
+          <div class="testi-initials">JR</div>
+          <div>
+            <strong>Julien R.</strong>
+            <span>Talence — Appartement rénové</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="testi-text">« Chantier propre, travail soigné, communication parfaite. Julien a su s'adapter à nos contraintes de planning. Le parquet wengé est superbe. »</p>
+        <div class="testi-author">
+          <div class="testi-initials">IT</div>
+          <div>
+            <strong>Isabelle T.</strong>
+            <span>Bordeaux Chartrons</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="testi-text">« Julien est intervenu en urgence pour réparer notre parquet avant une vente. Résultat bluffant en 2 jours. Prix juste et transparent. Je recommande les yeux fermés. »</p>
+        <div class="testi-author">
+          <div class="testi-initials">TV</div>
+          <div>
+            <strong>Thomas V.</strong>
+            <span>Bordeaux Saint-Michel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-info reveal">
+    <p class="section-label">Contact</p>
+    <h2>Parlons de votre <em>projet</em></h2>
+    <p>Vous avez un projet de parquet ou de menuiserie ? Contactez-moi pour un devis gratuit. Je réponds dans les 24h et me déplace sur tout le département de la Gironde.</p>
+    <div class="contact-items">
+      <div class="contact-item">
+        <div class="citem-line"></div>
+        <div>
+          <strong>Téléphone</strong>
+          <a href="tel:+33612345678">06 12 34 56 78</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="citem-line"></div>
+        <div>
+          <strong>Email</strong>
+          <a href="mailto:contact@juliengerardbois.fr">contact@juliengerardbois.fr</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="citem-line"></div>
+        <div>
+          <strong>Zone d'intervention</strong>
+          <span>Bordeaux &amp; Gironde</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="citem-line"></div>
+        <div>
+          <strong>Disponibilité</strong>
+          <span>Lun – Sam · 8h00 – 19h00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form-wrap reveal">
+    <div id="formContent">
+      <h3>Demande de devis gratuit</h3>
+      <form id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">Prénom *</label>
+            <input type="text" id="fname" name="fname" placeholder="Jean" required />
+          </div>
+          <div class="form-group">
+            <label for="lname">Nom *</label>
+            <input type="text" id="lname" name="lname" placeholder="Dupont" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="jean.dupont@email.fr" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Téléphone</label>
+          <input type="tel" id="phone" name="phone" placeholder="06 00 00 00 00" />
+        </div>
+        <div class="form-group">
+          <label for="service">Type de prestation *</label>
+          <select id="service" name="service" required>
+            <option value="">— Sélectionner —</option>
+            <option>Pose de parquet neuf</option>
+            <option>Rénovation / ponçage</option>
+            <option>Escalier sur-mesure</option>
+            <option>Menuiserie intérieure</option>
+            <option>Aménagement sur-mesure</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Description du projet *</label>
+          <textarea id="message" name="message" placeholder="Surface approximative, type de bois souhaité, contraintes particulières…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary form-submit">Envoyer ma demande</button>
+      </form>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">✓</div>
+      <h4>Message bien reçu !</h4>
+      <p>Je vous recontacterai dans les 24h pour discuter de votre projet et planifier une visite sur site.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <svg width="70" height="70" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="57" stroke="rgba(247,243,238,0.3)" stroke-width="1.2"/>
+        <text x="60" y="55" text-anchor="middle"
+          font-family="Cormorant Garamond, Georgia, serif"
+          font-size="9.5" font-weight="500" letter-spacing="0.8" textLength="88" lengthAdjust="spacingAndGlyphs" fill="rgba(247,243,238,0.7)">JULIEN GÉRARD BOIS</text>
+        <line x1="24" y1="63" x2="96" y2="63" stroke="rgba(247,243,238,0.2)" stroke-width=".8"/>
+        <text x="60" y="76" text-anchor="middle"
+          font-family="Cormorant Garamond, Georgia, serif"
+          font-size="10" font-weight="400" letter-spacing="3.5" fill="rgba(247,243,238,0.7)">BORDEAUX</text>
+      </svg>
+      <p>Artisan parqueteur-menuisier Compagnon du Tour de France. Parquets et menuiseries d'exception à Bordeaux depuis 2004.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" aria-label="Instagram">ig</a>
+        <a href="#" class="social-btn" aria-label="Facebook">fb</a>
+        <a href="#" class="social-btn" aria-label="Pinterest">pt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Pose de parquet</a></li>
+        <li><a href="#services">Rénovation</a></li>
+        <li><a href="#services">Menuiserie</a></li>
+        <li><a href="#services">Sur-mesure</a></li>
+        <li><a href="#services">Vitrification</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Essences</h4>
+      <ul>
+        <li><a href="#materials">Chêne massif</a></li>
+        <li><a href="#materials">Noyer</a></li>
+        <li><a href="#materials">Frêne</a></li>
+        <li><a href="#materials">Merisier</a></li>
+        <li><a href="#materials">Wengé</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Informations</h4>
+      <ul>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#portfolio">Réalisations</a></li>
+        <li><a href="#testimonials">Avis clients</a></li>
+        <li><a href="#contact">Devis gratuit</a></li>
+        <li><a href="#">Mentions légales</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Julien Gérard Bois · SIRET 123 456 789 00012 · Assurance décennale souscrite</p>
+    <p><a href="#">Mentions légales</a></p>
+  </div>
+</footer>
+
+<a href="#hero" class="back-top" id="backTop" aria-label="Retour en haut">↑</a>
+
+<script>
+  /* Nav scroll */
+  const nav = document.getElementById('navbar');
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+    backTop.classList.toggle('visible', window.scrollY > 400);
+  });
+
+  /* Hamburger */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  const navEl = document.querySelector('nav');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    navEl.classList.toggle('menu-open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navEl.classList.remove('menu-open');
+  }));
+
+  /* Scroll reveal */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* Testimonials infinite scroll: duplicate cards */
+  const track = document.getElementById('testiTrack');
+  track.innerHTML += track.innerHTML;
+
+  /* Form */
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const required = this.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(f => { if (!f.value.trim()) { f.style.borderColor = 'rgba(180,60,40,.5)'; valid = false; } else { f.style.borderColor = ''; } });
+    if (!valid) return;
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  });
+</script>
+
+<script>
+  // Hero gallery slideshow
+  (function() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots   = document.querySelectorAll('.hero-dot');
+    let current  = 0;
+    let timer;
+
+    function goTo(idx) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = idx;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    function next() { goTo((current + 1) % slides.length); }
+
+    function start() { timer = setInterval(next, 4000); }
+    function reset() { clearInterval(timer); start(); }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        goTo(Number(dot.dataset.index));
+        reset();
+      });
+    });
+
+    start();
+  })();
+</script>
+</body>
+</html>
