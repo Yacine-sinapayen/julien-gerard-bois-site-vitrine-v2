@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Julien Gérard Bois — Artisan Parqueteur · Bordeaux</title>
-  <meta name="description" content="Artisan parqueteur et menuisier à Bordeaux depuis 25 ans. Pose, rénovation et fabrication sur-mesure de parquets en bois massif." />
+  <meta name="description" content="Artisan parqueteur à Bordeaux depuis 25 ans. Pose, rénovation, ponçage et vitrification de parquets en bois massif." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,6 +26,10 @@
 
     html { scroll-behavior: smooth; }
 
+    section, #devis {
+      scroll-margin-top: 80px;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background: var(--ivory);
@@ -45,12 +49,13 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1rem clamp(1.5rem, 6vw, 5rem);
-      transition: background .4s, box-shadow .4s;
-    }
-    nav.scrolled {
       background: rgba(241,236,223,.96);
       backdrop-filter: blur(16px);
       box-shadow: 0 1px 0 var(--line);
+      transition: box-shadow .3s ease;
+    }
+    nav.scrolled {
+      box-shadow: 0 4px 24px rgba(42,31,21,.1);
     }
     nav.menu-open {
       background: rgba(241,236,223,1);
@@ -58,7 +63,7 @@
     }
 
     .nav-links {
-      display: flex; gap: 2.5rem; list-style: none;
+      display: flex; gap: 2.5rem; list-style: none; align-items: center;
     }
     .nav-links a {
       text-decoration: none;
@@ -107,7 +112,10 @@
       position: relative;
     }
 
-    .hero-badge{
+    .hero-badge {
+      display: flex;
+      align-items: baseline;
+      gap: .6rem;
       margin-bottom: 1.8rem;
     }
 
@@ -177,8 +185,6 @@
       color: var(--muted);
       letter-spacing: .1em;
       text-transform: uppercase;
-      display: block;
-      margin-top: .3rem;
     }
 
     /* Hero right: réalisations gallery */
@@ -241,22 +247,34 @@
 
     /* ── BANNER STRIP ─────────────────────────────── */
     .strip {
-      background: var(--oak-deep);
-      padding: 1.1rem clamp(1.5rem, 6vw, 5rem);
-      display: flex; align-items: center; gap: 3rem;
+      background: var(--ivory);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 1.2rem 0;
       overflow: hidden;
     }
-    .strip-item {
-      display: inline-flex; align-items: center; gap: .75rem;
-      flex-shrink: 0;
-      font-size: .72rem; font-weight: 400;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(249,246,241,.7);
+    .strip-track {
+      display: flex; align-items: center; gap: 3.5rem;
+      width: max-content;
+      animation: strip-marquee 35s linear infinite;
     }
-    .strip-item strong { color: var(--white); font-weight: 500; }
+    .strip-track:hover { animation-play-state: paused; }
+    @keyframes strip-marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .strip-item {
+      display: inline-flex; align-items: center;
+      flex-shrink: 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 400; font-style: italic;
+      letter-spacing: .01em;
+      color: var(--bark);
+      white-space: nowrap;
+    }
     .strip-dot {
-      width: 4px; height: 4px; border-radius: 50%;
-      background: var(--sand); opacity: .5;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--sand);
       flex-shrink: 0;
     }
 
@@ -297,7 +315,7 @@
       background: var(--white);
     }
     .services-head {
-      display: flex; justify-content: space-between; align-items: flex-end;
+      display: flex; justify-content: space-between; align-items: flex-start;
       margin-bottom: 5rem;
       gap: 2rem; flex-wrap: wrap;
     }
@@ -376,14 +394,14 @@
       border-top: 1px solid rgba(255,255,255,.08);
     }
     .step {
-      padding: 2.5rem 2rem 2rem 0;
+      padding: 1.5rem;
       border-right: 1px solid rgba(255,255,255,.06);
     }
     .step:last-child { border-right: none; }
     .step-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 3.5rem; font-weight: 300;
-      color: rgba(201,171,135,.2);
+      color: rgba(255,255,255,.7);
       line-height: 1;
       display: block;
       margin-bottom: 1.5rem;
@@ -409,59 +427,93 @@
       margin-bottom: 3rem;
       gap: 2rem; flex-wrap: wrap;
     }
-    .arsia-embed {
-      border-radius: 2px;
+    /* Carousel */
+    .portfolio-carousel {
+      position: relative;
+      border-radius: 4px;
       overflow: hidden;
+      background: var(--charcoal);
+      aspect-ratio: 16/9;
+      max-height: min(620px, 65vh);
+      width: 100%;
+      margin: 0 auto;
     }
-    .arsia-embed iframe { display: block; }
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--oak-deep);
+      border: none;
+      color: var(--white);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: background .25s, transform .2s;
+    }
+    .carousel-btn:hover { background: var(--oak); transform: translateY(-50%) translateY(-2px); }
+    .carousel-btn.prev { left: 1.25rem; }
+    .carousel-btn.next { right: 1.25rem; }
+    .carousel-btn svg { width: 20px; height: 20px; }
+    .carousel-dots {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .carousel-dot.active {
+      background: #fff;
+      transform: scale(1.3);
+    }
+    .carousel-counter {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      background: rgba(0,0,0,0.35);
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      backdrop-filter: blur(4px);
+      z-index: 10;
+    }
     .portfolio-cta { margin-top: 2.5rem; text-align: center; }
 
-    /* ── MATERIALS ─────────────────────────────────── */
-    #materials {
-      padding: clamp(5rem, 8vw, 8rem) clamp(1.5rem, 6vw, 5rem);
-      background: var(--white);
-    }
-    .materials-head { margin-bottom: 3.5rem; }
-
-    .materials-row {
-      display: flex; gap: 0;
-      border: 1px solid var(--line);
-      overflow: hidden;
-      border-radius: 2px;
-    }
-    .material-item {
-      flex: 1;
-      padding: 2.5rem 1.5rem;
-      border-right: 1px solid var(--line);
-      display: flex; flex-direction: column; align-items: center; gap: 1rem;
-      transition: background .3s;
-      cursor: default;
-    }
-    .material-item:last-child { border-right: none; }
-    .material-item:hover { background: var(--ivory); }
-
-    .swatch {
-      width: 52px; height: 52px; border-radius: 50%;
-      box-shadow: 0 4px 16px rgba(42,31,21,.12);
-    }
-    .sw-chene   { background: radial-gradient(circle at 35% 35%, #DDB880, #8B5E3C); }
-    .sw-noyer   { background: radial-gradient(circle at 35% 35%, #7A4E2A, #3D2010); }
-    .sw-frene   { background: radial-gradient(circle at 35% 35%, #F0D8AA, #C4996A); }
-    .sw-merisier{ background: radial-gradient(circle at 35% 35%, #B06040, #7A3820); }
-    .sw-bambou  { background: radial-gradient(circle at 35% 35%, #DDD09A, #9B8E50); }
-    .sw-wenge   { background: radial-gradient(circle at 35% 35%, #4D3525, #1A0E08); }
-
-    .material-item strong {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem; font-weight: 500;
-      color: var(--bark);
-    }
-    .material-item small {
-      font-size: .68rem; font-weight: 400;
-      color: var(--muted);
-      letter-spacing: .06em;
-      text-align: center; line-height: 1.5;
-    }
 
     /* ── ABOUT ─────────────────────────────────────── */
     #about {
@@ -470,7 +522,7 @@
       display: grid;
       grid-template-columns: 1fr 1.1fr;
       gap: clamp(3rem, 6vw, 8rem);
-      align-items: center;
+      align-items: start;
     }
 
     .about-visual-wrap {
@@ -746,7 +798,7 @@
     }
     .footer-top {
       display: grid;
-      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      grid-template-columns: 1.6fr 1fr 1fr;
       gap: 3rem;
       padding-bottom: 3.5rem;
       border-bottom: 1px solid rgba(255,255,255,.07);
@@ -756,6 +808,7 @@
       color: rgba(241,236,223,.4);
       max-width: 260px;
       margin-top: 1.5rem;
+      margin-left: auto; margin-right: auto;
     }
     .footer-socials {
       display: flex; gap: .5rem; margin-top: 2rem;
@@ -790,7 +843,7 @@
     }
     .footer-col ul a:hover { color: var(--sand); }
     .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex; justify-content: center; align-items: center;
       padding-top: 2.5rem;
       flex-wrap: wrap; gap: 1rem;
     }
@@ -852,7 +905,8 @@
 
     @media (max-width: 640px) {
       .nav-links { display: none; }
-      .hamburger { display: flex; }
+      .hamburger { display: flex; position: absolute; right: 1.5rem; }
+      nav { justify-content: center; }
       .nav-links.open {
         display: flex; flex-direction: column;
         position: fixed; inset: 68px 0 0;
@@ -865,14 +919,32 @@
       }
       .nav-links.open a { font-size: .9rem; }
       .steps { grid-template-columns: 1fr; }
-      .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); padding: 2rem 0; }
+      .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); padding: 2rem 0; text-align: center; }
+      .process-head { text-align: center; }
       .form-row { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+      footer { text-align: center; }
+      .footer-socials { justify-content: center; }
+      .footer-brand p { margin-left: auto; margin-right: auto; }
+      .footer-bottom { justify-content: center; }
       .about-values { grid-template-columns: 1fr; }
       .strip { gap: 2rem; }
       .materials-row { flex-direction: column; }
       .material-item { flex: 1 1 100%; flex-direction: row; gap: 1.5rem; padding: 1.5rem; }
       .material-item small { text-align: left; }
+      .hero-left { text-align: center; align-items: center; }
+      .hero-badge { justify-content: center; }
+      .services-head { text-align: center; align-items: center; flex-direction: column; }
+      .services-head .section-intro { max-width: 100% !important; }
+      .portfolio-head { text-align: center; align-items: center; flex-direction: column; }
+      .portfolio-head .section-intro { max-width: 100% !important; }
+      .about-content { text-align: center; }
+      .about-values { text-align: left; }
+      .testi-header { text-align: center; flex-direction: column; align-items: center; }
+      .testi-header .section-intro { max-width: 100% !important; }
+      .btn-group { justify-content: center; }
+      .services-head > div:last-child .btn { display: inline-flex; }
     }
   </style>
 </head>
@@ -881,15 +953,19 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#hero" class="logo-circle" aria-label="Julien Gérard Bois">
-    <svg height="36" viewBox="0 0 210 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <text x="105" y="22" text-anchor="middle"
+    <svg height="46" viewBox="0 0 210 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="105" y="16" text-anchor="middle"
         font-family="'Cormorant Garamond', Georgia, serif"
         font-size="18" font-weight="400" letter-spacing="2"
         fill="#2A1F15">JULIEN GÉRARD BOIS</text>
-      <text x="105" y="33" text-anchor="middle"
+      <text x="105" y="28" text-anchor="middle"
         font-family="'Inter', sans-serif"
         font-size="7" font-weight="400" letter-spacing="4.5"
         fill="#8C6A4A">BORDEAUX</text>
+      <text x="105" y="40" text-anchor="middle"
+        font-family="'Inter', sans-serif"
+        font-size="6" font-weight="400" letter-spacing="2.5"
+        fill="#8A7A66">PARQUET · TERRASSE · PONÇAGE</text>
     </svg>
   </a>
 
@@ -898,7 +974,7 @@
     <li><a href="#portfolio">Réalisations</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#testimonials">Avis</a></li>
-    <li><a href="#contact" class="nav-cta">Devis gratuit</a></li>
+    <li><a href="#devis" class="nav-cta">Demander un devis</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -915,7 +991,7 @@
     <h1>L'art du bois,<br><em>sublimé</em><br>chez vous</h1>
     <p class="hero-sub">Pose, rénovation et fabrication sur-mesure de parquets en bois massif à Bordeaux. Chaque lame posée à la main pour un résultat qui durera des générations.</p>
     <div class="btn-group">
-      <a href="#contact" class="btn btn-primary">Demander un devis</a>
+      <a href="#devis" class="btn btn-primary">Demander un devis</a>
       <a href="#portfolio" class="btn btn-outline">Voir les réalisations</a>
     </div>
   </div>
@@ -923,20 +999,40 @@
   <div class="hero-right">
     <div class="hero-gallery" id="heroGallery">
       <div class="hero-slide active">
-        <img src="images/realisation-1.png" alt="Pose de parquet point de Hongrie" />
-        <div class="hero-slide-label"><span>Pose de parquet point de Hongrie</span></div>
+        <img src="images/hero-1.png" alt="Parquet point de Hongrie — séjour" />
+        <div class="hero-slide-label"><span>Parquet point de Hongrie — séjour</span></div>
       </div>
       <div class="hero-slide">
-        <img src="images/realisation-2.png" alt="Parquet en chevron — salon contemporain" />
-        <div class="hero-slide-label"><span>Parquet en chevron — salon contemporain</span></div>
+        <img src="images/hero-2.png" alt="Parquet chêne massif — espace ouvert" />
+        <div class="hero-slide-label"><span>Parquet chêne massif — espace ouvert</span></div>
       </div>
       <div class="hero-slide">
-        <img src="images/realisation-3.png" alt="Rénovation d'escalier en bois" />
-        <div class="hero-slide-label"><span>Rénovation d'escalier en bois</span></div>
+        <img src="images/hero-3.png" alt="Parquet point de Hongrie — salon" />
+        <div class="hero-slide-label"><span>Parquet point de Hongrie — salon</span></div>
       </div>
       <div class="hero-slide">
-        <img src="images/realisation-4.png" alt="Rénovation de parquet ancien" />
-        <div class="hero-slide-label"><span>Rénovation de parquet ancien</span></div>
+        <img src="images/hero-4.png" alt="Parquet chêne massif — intérieur contemporain" />
+        <div class="hero-slide-label"><span>Parquet chêne massif — intérieur contemporain</span></div>
+      </div>
+      <div class="hero-slide">
+        <img src="images/hero-5.png" alt="Pose de parquet — maison" />
+        <div class="hero-slide-label"><span>Pose de parquet — maison</span></div>
+      </div>
+      <div class="hero-slide">
+        <img src="images/hero-6.png" alt="Parquet chêne brut — chambre" />
+        <div class="hero-slide-label"><span>Parquet chêne brut — chambre</span></div>
+      </div>
+      <div class="hero-slide">
+        <img src="images/hero-7.png" alt="Chantier parquet — réalisation" />
+        <div class="hero-slide-label"><span>Chantier parquet — réalisation</span></div>
+      </div>
+      <div class="hero-slide">
+        <img src="images/hero-8.png" alt="Chantier parquet — pose en cours" />
+        <div class="hero-slide-label"><span>Chantier parquet — pose en cours</span></div>
+      </div>
+      <div class="hero-slide">
+        <img src="images/hero-9.png" alt="Chantier parquet — finition" />
+        <div class="hero-slide-label"><span>Chantier parquet — finition</span></div>
       </div>
     </div>
     <div class="hero-gallery-dots" id="heroDots">
@@ -944,6 +1040,11 @@
       <button class="hero-dot" data-index="1"></button>
       <button class="hero-dot" data-index="2"></button>
       <button class="hero-dot" data-index="3"></button>
+      <button class="hero-dot" data-index="4"></button>
+      <button class="hero-dot" data-index="5"></button>
+      <button class="hero-dot" data-index="6"></button>
+      <button class="hero-dot" data-index="7"></button>
+      <button class="hero-dot" data-index="8"></button>
     </div>
   </div>
 
@@ -952,17 +1053,28 @@
 
 <!-- STRIP -->
 <div class="strip">
-  <div class="strip-item"><strong>Maître Artisan</strong></div>
-  <div class="strip-dot"></div>
-  <div class="strip-item"><strong>Compagnon du Tour de France</strong></div>
-  <div class="strip-dot"></div>
-  <div class="strip-item"><strong>Garantie Décennale</strong></div>
-  <div class="strip-dot"></div>
-  <div class="strip-item"><strong>Bois certifiés PEFC</strong></div>
-  <div class="strip-dot"></div>
-  <div class="strip-item"><strong>Devis gratuit sous 48h</strong></div>
-  <div class="strip-dot"></div>
-  <div class="strip-item"><strong>Bordeaux &amp; Gironde</strong></div>
+  <div class="strip-track" id="stripTrack">
+    <div class="strip-item">Rénovation patrimoniale</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">Vitrification</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">Huilage naturel</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">Massif cloué</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">Pointe de Hongrie</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">Bâton rompu</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">Dalles de Versailles</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">Chevrons</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">Terrasse bois</div>
+    <div class="strip-dot"></div>
+    <div class="strip-item">Bois exotique</div>
+    <div class="strip-dot"></div>
+  </div>
 </div>
 
 <!-- SERVICES -->
@@ -972,12 +1084,14 @@
       <p class="section-label">Ce que je fais</p>
       <h2>Des prestations<br><em>sur-mesure</em></h2>
     </div>
-    <p class="section-intro" style="max-width:380px">Du conseil jusqu'à la finition, chaque projet est traité avec le même soin du détail et la même passion pour le bois noble.</p>
+    <div>
+      <p class="section-intro" style="max-width:400px">Du conseil jusqu'à la finition, chaque projet est traité avec le même soin du détail et la même passion pour le bois noble.</p>
+      <a href="#contact" class="btn btn-primary" style="margin-top:1.5rem;">Demander un devis</a>
+    </div>
   </div>
 
   <div class="services-grid">
     <div class="service-item reveal">
-      <span class="service-num">01</span>
       <h3>Pose de Parquet</h3>
       <p>Installation de parquets massifs, contrecollés ou stratifiés avec les techniques traditionnelles ou flottantes. Chaque chantier commence par une analyse précise de votre support.</p>
       <div class="service-tags">
@@ -988,9 +1102,8 @@
       </div>
     </div>
     <div class="service-item reveal">
-      <span class="service-num">02</span>
-      <h3>Vitrification &amp; Finitions</h3>
-      <p>Traitement et protection de vos parquets pour une beauté et une durabilité maximales. Ponçage, teinture, huilage ou vitrification — je vous conseille selon l'usage et le style.</p>
+      <h3>Ponçage &amp; Vitrification</h3>
+      <p>Ponçage soigneux pour retrouver la beauté naturelle du bois, suivi d'une vitrification haute résistance pour protéger votre parquet durablement. Un résultat lisse, brillant ou mat selon vos préférences.</p>
       <div class="service-tags">
         <span class="service-tag">Vitrification</span>
         <span class="service-tag">Huilage naturel</span>
@@ -999,25 +1112,13 @@
       </div>
     </div>
     <div class="service-item reveal">
-      <span class="service-num">03</span>
-      <h3>Aménagement Sur-Mesure</h3>
-      <p>Conception et réalisation de mobilier et aménagements en bois adaptés à vos espaces. Chaque pièce est unique, pensée pour s'intégrer parfaitement à votre intérieur.</p>
+      <h3>Terrasse Bois</h3>
+      <p>Conception et pose de terrasses en bois massif ou composite pour prolonger votre intérieur vers l'extérieur. Choix des essences adaptées aux contraintes climatiques, traitement et finition durables.</p>
       <div class="service-tags">
-        <span class="service-tag">Dressings</span>
-        <span class="service-tag">Bibliothèques</span>
-        <span class="service-tag">Cuisines</span>
-        <span class="service-tag">Mobilier bespoke</span>
-      </div>
-    </div>
-    <div class="service-item reveal">
-      <span class="service-num">04</span>
-      <h3>Menuiserie Intérieure</h3>
-      <p>Fabrication et pose de menuiseries intérieures haut de gamme. De la conception sur plans jusqu'au produit fini, tout est réalisé en atelier puis posé avec soin.</p>
-      <div class="service-tags">
-        <span class="service-tag">Escaliers</span>
-        <span class="service-tag">Portes</span>
-        <span class="service-tag">Moulures</span>
-        <span class="service-tag">Lambris</span>
+        <span class="service-tag">Pose sur lambourdes</span>
+        <span class="service-tag">Bois exotique</span>
+        <span class="service-tag">Pin traité</span>
+        <span class="service-tag">Sur-mesure</span>
       </div>
     </div>
   </div>
@@ -1069,61 +1170,37 @@
     <p class="section-intro" style="max-width:380px">Chaque chantier est unique. Voici quelques-unes de mes réalisations récentes à Bordeaux et en Gironde.</p>
   </div>
 
-  <div class="arsia-embed reveal">
-    <iframe src="http://localhost:3000/embed/user/69e1f2eb45993e9cb2ac059c" width="100%" height="700px" frameborder="0" style="border:none;"></iframe>
+  <div class="portfolio-carousel reveal" id="portfolioCarousel">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide"><img src="images/hero-1.png" alt="Réalisation parquet — chantier 1" loading="lazy"></div>
+      <div class="carousel-slide"><img src="images/hero-2.png" alt="Réalisation parquet — chantier 2" loading="lazy"></div>
+      <div class="carousel-slide"><img src="images/hero-3.png" alt="Réalisation parquet — chantier 3" loading="lazy"></div>
+      <div class="carousel-slide"><img src="images/hero-5.png" alt="Réalisation parquet — chantier 5" loading="lazy"></div>
+      <div class="carousel-slide"><img src="images/hero-6.png" alt="Réalisation parquet — chantier 6" loading="lazy"></div>
+      <div class="carousel-slide"><img src="images/hero-7.png" alt="Réalisation parquet — chantier 7" loading="lazy"></div>
+      <div class="carousel-slide"><img src="images/hero-8.png" alt="Réalisation parquet — chantier 8" loading="lazy"></div>
+      <div class="carousel-slide"><img src="images/hero-9.png" alt="Réalisation parquet — chantier 9" loading="lazy"></div>
+    </div>
+    <button class="carousel-btn prev" id="carouselPrev" aria-label="Image précédente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="carousel-btn next" id="carouselNext" aria-label="Image suivante">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="carousel-dots" id="carouselDots"></div>
+    <div class="carousel-counter" id="carouselCounter">1 / 8</div>
   </div>
   <div class="portfolio-cta reveal">
-    <a href="#contact" class="btn btn-primary">Discuter de votre projet</a>
+    <a href="#devis" class="btn btn-primary">Demander un devis</a>
   </div>
 </section>
 
-<!-- MATERIALS -->
-<section id="materials">
-  <div class="materials-head reveal">
-    <p class="section-label">Essences de bois</p>
-    <h2>Une sélection <em>noble</em></h2>
-    <p class="section-intro" style="margin-top:.75rem">Je travaille exclusivement avec des bois de première qualité, sourcés auprès de scieries françaises et européennes responsables.</p>
-  </div>
-
-  <div class="materials-row reveal">
-    <div class="material-item">
-      <div class="swatch sw-chene"></div>
-      <strong>Chêne</strong>
-      <small>La référence intemporelle</small>
-    </div>
-    <div class="material-item">
-      <div class="swatch sw-noyer"></div>
-      <strong>Noyer</strong>
-      <small>Chaleur &amp; élégance</small>
-    </div>
-    <div class="material-item">
-      <div class="swatch sw-frene"></div>
-      <strong>Frêne</strong>
-      <small>Lumineux &amp; solide</small>
-    </div>
-    <div class="material-item">
-      <div class="swatch sw-merisier"></div>
-      <strong>Merisier</strong>
-      <small>Douceur naturelle</small>
-    </div>
-    <div class="material-item">
-      <div class="swatch sw-bambou"></div>
-      <strong>Bambou</strong>
-      <small>Éco &amp; ultra-résistant</small>
-    </div>
-    <div class="material-item">
-      <div class="swatch sw-wenge"></div>
-      <strong>Wengé</strong>
-      <small>Design affirmé</small>
-    </div>
-  </div>
-</section>
 
 <!-- ABOUT -->
 <section id="about">
   <div class="about-visual-wrap reveal">
     <div class="about-visual">
-      <div class="about-visual-bg"></div>
+      <img src="images/about-van.png" alt="Julien Gérard Bois — Bordeaux" style="width:100%;height:100%;object-fit:cover;display:block;" />
     </div>
     <div class="about-frame"></div>
     <div class="about-badge">
@@ -1135,26 +1212,8 @@
   <div class="about-content reveal">
     <p class="section-label">À propos</p>
     <h2>Passion du bois,<br>depuis <em>toujours</em></h2>
-    <p>Je suis Julien Gérard, artisan parqueteur-menuisier installé à Bordeaux depuis 2004. Compagnon du Tour de France, j'ai perfectionné mon art auprès des meilleurs ateliers européens avant de créer ma propre structure.</p>
-    <p>Mon approche est simple : écouter votre projet, choisir les matériaux avec vous, et réaliser un travail dont vous serez fier pendant des décennies. Chaque intervention est unique et traitée avec la même rigueur artisanale.</p>
-    <div class="about-values">
-      <div class="about-value">
-        <h4>Éco-responsable</h4>
-        <p>Bois certifiés PEFC, finitions naturelles, chutes valorisées.</p>
-      </div>
-      <div class="about-value">
-        <h4>Respect des délais</h4>
-        <p>Planning rigoureux et communication transparente tout au long.</p>
-      </div>
-      <div class="about-value">
-        <h4>Précision millimétrée</h4>
-        <p>Mesures sur site, coupes ajustées et finitions irréprochables.</p>
-      </div>
-      <div class="about-value">
-        <h4>Un seul interlocuteur</h4>
-        <p>Moi du début à la fin. Pas de sous-traitance, pas de surprise.</p>
-      </div>
-    </div>
+    <p>Je suis Julien Gérard, artisan parqueteur installé à Bordeaux depuis 2004. Au fil de 25 ans de métier — en France, en Suisse ou encore l'italie — j'ai forgé un savoir-faire exigeant et ed qualité nourri l'amour du bois bien travaillé.</p>
+    <p>Pose de parquet massif, rénovation de parquets anciens, terrasse bois ou création sur-mesure — chaque projet est unique, et je le traite comme tel, du premier rendez-vous jusqu'à la dernière passe de finition.</p>
   </div>
 </section>
 
@@ -1187,38 +1246,12 @@
         <div class="testi-stars">
           <span></span><span></span><span></span><span></span><span></span>
         </div>
-        <p class="testi-text">« Escalier en noyer massif sur-mesure. Je n'aurais jamais cru un résultat aussi beau possible. Julien est un vrai artiste. Je le recommande à tous mes proches. »</p>
-        <div class="testi-author">
-          <div class="testi-initials">PM</div>
-          <div>
-            <strong>Pierre M.</strong>
-            <span>Mérignac — Maison individuelle</span>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
         <p class="testi-text">« Rénovation complète du parquet de notre maison. Ponçage, teinture et vitrification impeccables. Le bois semblait neuf mais conservait tout son caractère. »</p>
         <div class="testi-author">
           <div class="testi-initials">CB</div>
           <div>
             <strong>Claire B.</strong>
             <span>Pessac — Maison 180m²</span>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <p class="testi-text">« Dressing et bibliothèque en chêne massif. Tout est parfaitement intégré, les finitions sont irréprochables. Un artisan sérieux qui mérite vraiment sa réputation. »</p>
-        <div class="testi-author">
-          <div class="testi-initials">JR</div>
-          <div>
-            <strong>Julien R.</strong>
-            <span>Talence — Appartement rénové</span>
           </div>
         </div>
       </div>
@@ -1250,6 +1283,9 @@
       </div>
     </div>
   </div>
+  <div style="text-align:center;margin-top:3rem;">
+    <a href="#devis" class="btn btn-primary">Demander un devis</a>
+  </div>
 </section>
 
 <!-- CONTACT -->
@@ -1257,20 +1293,20 @@
   <div class="contact-info reveal">
     <p class="section-label">Contact</p>
     <h2>Parlons de votre <em>projet</em></h2>
-    <p>Vous avez un projet de parquet ou de menuiserie ? Contactez-moi pour un devis gratuit. Je réponds dans les 24h et me déplace sur tout le département de la Gironde.</p>
+    <p>Vous avez un projet de parquet ? Contactez-moi pour un devis gratuit. Je réponds dans les 24h et me déplace sur tout le département de la Gironde.</p>
     <div class="contact-items">
       <div class="contact-item">
         <div class="citem-line"></div>
         <div>
           <strong>Téléphone</strong>
-          <a href="tel:+33612345678">06 12 34 56 78</a>
+          <a href="tel:+33633442714">06 33 44 27 14</a>
         </div>
       </div>
       <div class="contact-item">
         <div class="citem-line"></div>
         <div>
           <strong>Email</strong>
-          <a href="mailto:contact@juliengerardbois.fr">contact@juliengerardbois.fr</a>
+          <a href="mailto:juliengérard.parquet@gmail.com">juliengérard.parquet@gmail.com</a>
         </div>
       </div>
       <div class="contact-item">
@@ -1284,13 +1320,13 @@
         <div class="citem-line"></div>
         <div>
           <strong>Disponibilité</strong>
-          <span>Lun – Sam · 8h00 – 19h00</span>
+          <span>Lun – Ven · 8h00 – 19h00</span>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="contact-form-wrap reveal">
+  <div class="contact-form-wrap reveal" id="devis">
     <div id="formContent">
       <h3>Demande de devis gratuit</h3>
       <form id="contactForm" novalidate>
@@ -1318,9 +1354,7 @@
             <option value="">— Sélectionner —</option>
             <option>Pose de parquet neuf</option>
             <option>Rénovation / ponçage</option>
-            <option>Escalier sur-mesure</option>
-            <option>Menuiserie intérieure</option>
-            <option>Aménagement sur-mesure</option>
+            <option>Terrasse bois</option>
             <option>Autre</option>
           </select>
         </div>
@@ -1343,21 +1377,27 @@
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <svg width="70" height="70" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="60" cy="60" r="57" stroke="rgba(241,236,223,0.3)" stroke-width="1.2"/>
-        <text x="60" y="55" text-anchor="middle"
-          font-family="Cormorant Garamond, Georgia, serif"
-          font-size="9.5" font-weight="500" letter-spacing="0.8" textLength="88" lengthAdjust="spacingAndGlyphs" fill="rgba(241,236,223,0.7)">JULIEN GÉRARD BOIS</text>
-        <line x1="24" y1="63" x2="96" y2="63" stroke="rgba(241,236,223,0.2)" stroke-width=".8"/>
-        <text x="60" y="76" text-anchor="middle"
-          font-family="Cormorant Garamond, Georgia, serif"
-          font-size="10" font-weight="400" letter-spacing="3.5" fill="rgba(241,236,223,0.7)">BORDEAUX</text>
+      <svg height="46" viewBox="0 0 210 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="105" y="16" text-anchor="middle"
+          font-family="'Cormorant Garamond', Georgia, serif"
+          font-size="18" font-weight="400" letter-spacing="2"
+          fill="rgba(241,236,223,0.9)">JULIEN GÉRARD BOIS</text>
+        <text x="105" y="28" text-anchor="middle"
+          font-family="'Inter', sans-serif"
+          font-size="7" font-weight="400" letter-spacing="4.5"
+          fill="rgba(184,148,114,0.9)">BORDEAUX</text>
+        <text x="105" y="40" text-anchor="middle"
+          font-family="'Inter', sans-serif"
+          font-size="6" font-weight="400" letter-spacing="2.5"
+          fill="rgba(138,122,102,0.8)">PARQUET · TERRASSE · PONÇAGE</text>
       </svg>
-      <p>Artisan parqueteur-menuisier Compagnon du Tour de France. Parquets et menuiseries d'exception à Bordeaux depuis 2004.</p>
       <div class="footer-socials">
-        <a href="#" class="social-btn" aria-label="Instagram">ig</a>
-        <a href="#" class="social-btn" aria-label="Facebook">fb</a>
-        <a href="#" class="social-btn" aria-label="Pinterest">pt</a>
+        <a href="https://www.instagram.com/julien_gerard_bois/" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/julien-gerard-49916b225/" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V9h4v2a6 6 0 0 1 2-2zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
       </div>
     </div>
     <div class="footer-col">
@@ -1365,28 +1405,18 @@
       <ul>
         <li><a href="#services">Pose de parquet</a></li>
         <li><a href="#services">Rénovation</a></li>
-        <li><a href="#services">Menuiserie</a></li>
-        <li><a href="#services">Sur-mesure</a></li>
         <li><a href="#services">Vitrification</a></li>
+        <li><a href="#services">Terrasse bois</a></li>
       </ul>
     </div>
-    <div class="footer-col">
-      <h4>Essences</h4>
-      <ul>
-        <li><a href="#materials">Chêne massif</a></li>
-        <li><a href="#materials">Noyer</a></li>
-        <li><a href="#materials">Frêne</a></li>
-        <li><a href="#materials">Merisier</a></li>
-        <li><a href="#materials">Wengé</a></li>
-      </ul>
-    </div>
+
     <div class="footer-col">
       <h4>Informations</h4>
       <ul>
         <li><a href="#about">À propos</a></li>
         <li><a href="#portfolio">Réalisations</a></li>
         <li><a href="#testimonials">Avis clients</a></li>
-        <li><a href="#contact">Devis gratuit</a></li>
+        <li><a href="#devis">Demander un devis</a></li>
         <li><a href="#">Mentions légales</a></li>
       </ul>
     </div>
@@ -1426,6 +1456,10 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* Strip infinite scroll: duplicate items */
+  const stripTrack = document.getElementById('stripTrack');
+  stripTrack.innerHTML += stripTrack.innerHTML;
 
   /* Testimonials infinite scroll: duplicate cards */
   const track = document.getElementById('testiTrack');
@@ -1471,6 +1505,62 @@
       });
     });
 
+    start();
+  })();
+</script>
+
+<script>
+  // Portfolio carousel
+  (function() {
+    const track   = document.getElementById('carouselTrack');
+    const dotsEl  = document.getElementById('carouselDots');
+    const counter = document.getElementById('carouselCounter');
+    const slides  = track.querySelectorAll('.carousel-slide');
+    const total   = slides.length;
+    let current   = 0;
+    let timer;
+    let startX    = 0;
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Image ' + (i + 1));
+      d.addEventListener('click', () => { goTo(i); reset(); });
+      dotsEl.appendChild(d);
+    });
+
+    function updateUI() {
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      counter.textContent = (current + 1) + ' / ' + total;
+    }
+
+    function goTo(idx) {
+      current = (idx + total) % total;
+      updateUI();
+    }
+
+    document.getElementById('carouselPrev').addEventListener('click', () => { goTo(current - 1); reset(); });
+    document.getElementById('carouselNext').addEventListener('click', () => { goTo(current + 1); reset(); });
+
+    // Touch swipe
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) { goTo(current + (diff > 0 ? 1 : -1)); reset(); }
+    }, { passive: true });
+
+    // Keyboard
+    document.getElementById('portfolioCarousel').addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') { goTo(current - 1); reset(); }
+      if (e.key === 'ArrowRight') { goTo(current + 1); reset(); }
+    });
+
+    function start() { timer = setInterval(() => goTo(current + 1), 4500); }
+    function reset() { clearInterval(timer); start(); }
+
+    updateUI();
     start();
   })();
 </script>
