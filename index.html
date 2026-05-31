@@ -431,21 +431,14 @@
       width: 100%;
       margin: 0 auto;
     }
-    .carousel-track {
-      display: flex;
-      height: 100%;
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      will-change: transform;
-    }
     .carousel-slide {
-      min-width: 100%;
-      height: 100%;
-      position: relative;
-      flex-shrink: 0;
+      position: absolute; inset: 0;
+      opacity: 0;
+      transition: opacity 1s ease;
     }
+    .carousel-slide.active { opacity: 1; }
     .carousel-slide img {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: contain;
       display: block;
     }
@@ -1205,16 +1198,14 @@
   </div>
 
   <div class="portfolio-carousel reveal" id="portfolioCarousel">
-    <div class="carousel-track" id="carouselTrack">
-      <div class="carousel-slide"><img src="images/hero-1.webp" alt="Réalisation parquet — chantier 1" loading="lazy"></div>
-      <div class="carousel-slide"><img src="images/hero-2.webp" alt="Réalisation parquet — chantier 2" loading="lazy"></div>
-      <div class="carousel-slide"><img src="images/hero-3.webp" alt="Réalisation parquet — chantier 3" loading="lazy"></div>
-      <div class="carousel-slide"><img src="images/hero-4.webp" alt="Réalisation parquet — chantier 4" loading="lazy"></div>
-      <div class="carousel-slide"><img src="images/hero-5.webp" alt="Réalisation parquet — chantier 5" loading="lazy"></div>
-      <div class="carousel-slide"><img src="images/hero-6.webp" alt="Réalisation parquet — chantier 6" loading="lazy"></div>
-      <div class="carousel-slide"><img src="images/hero-7.webp" alt="Réalisation parquet — chantier 7" loading="lazy"></div>
-      <div class="carousel-slide"><img src="images/hero-8.webp" alt="Réalisation parquet — chantier 8" loading="lazy"></div>
-    </div>
+    <div class="carousel-slide active"><img src="images/hero-1.webp" alt="Réalisation parquet — chantier 1" loading="lazy"></div>
+    <div class="carousel-slide"><img src="images/hero-2.webp" alt="Réalisation parquet — chantier 2" loading="lazy"></div>
+    <div class="carousel-slide"><img src="images/hero-3.webp" alt="Réalisation parquet — chantier 3" loading="lazy"></div>
+    <div class="carousel-slide"><img src="images/hero-4.webp" alt="Réalisation parquet — chantier 4" loading="lazy"></div>
+    <div class="carousel-slide"><img src="images/hero-5.webp" alt="Réalisation parquet — chantier 5" loading="lazy"></div>
+    <div class="carousel-slide"><img src="images/hero-6.webp" alt="Réalisation parquet — chantier 6" loading="lazy"></div>
+    <div class="carousel-slide"><img src="images/hero-7.webp" alt="Réalisation parquet — chantier 7" loading="lazy"></div>
+    <div class="carousel-slide"><img src="images/hero-8.webp" alt="Réalisation parquet — chantier 8" loading="lazy"></div>
     <button class="carousel-btn prev" id="carouselPrev" aria-label="Image précédente">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
@@ -1587,16 +1578,16 @@
 </script>
 
 <script>
-  // Portfolio carousel
+  // Portfolio slideshow (même mécanique que le hero)
   (function() {
-    const track   = document.getElementById('carouselTrack');
-    const dotsEl  = document.getElementById('carouselDots');
-    const counter = document.getElementById('carouselCounter');
-    const slides  = track.querySelectorAll('.carousel-slide');
-    const total   = slides.length;
-    let current   = 0;
+    const container = document.getElementById('portfolioCarousel');
+    const slides    = container.querySelectorAll('.carousel-slide');
+    const dotsEl    = document.getElementById('carouselDots');
+    const counter   = document.getElementById('carouselCounter');
+    const total     = slides.length;
+    let current     = 0;
     let timer;
-    let startX    = 0;
+    let startX      = 0;
 
     slides.forEach((_, i) => {
       const d = document.createElement('button');
@@ -1606,27 +1597,25 @@
       dotsEl.appendChild(d);
     });
 
-    function updateUI() {
-      track.style.transform = 'translateX(-' + (current * 100) + '%)';
-      dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-      counter.textContent = (current + 1) + ' / ' + total;
-    }
-
     function goTo(idx) {
+      slides[current].classList.remove('active');
+      dotsEl.querySelectorAll('.carousel-dot')[current].classList.remove('active');
       current = (idx + total) % total;
-      updateUI();
+      slides[current].classList.add('active');
+      dotsEl.querySelectorAll('.carousel-dot')[current].classList.add('active');
+      counter.textContent = (current + 1) + ' / ' + total;
     }
 
     document.getElementById('carouselPrev').addEventListener('click', () => { goTo(current - 1); reset(); });
     document.getElementById('carouselNext').addEventListener('click', () => { goTo(current + 1); reset(); });
 
-    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', e => {
+    container.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    container.addEventListener('touchend', e => {
       const diff = startX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 40) { goTo(current + (diff > 0 ? 1 : -1)); reset(); }
     }, { passive: true });
 
-    document.getElementById('portfolioCarousel').addEventListener('keydown', e => {
+    container.addEventListener('keydown', e => {
       if (e.key === 'ArrowLeft') { goTo(current - 1); reset(); }
       if (e.key === 'ArrowRight') { goTo(current + 1); reset(); }
     });
@@ -1634,7 +1623,6 @@
     function start() { timer = setInterval(() => goTo(current + 1), 4500); }
     function reset() { clearInterval(timer); start(); }
 
-    updateUI();
     start();
   })();
 </script>
