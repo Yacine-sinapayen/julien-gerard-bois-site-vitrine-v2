@@ -784,6 +784,48 @@
       color: var(--white); font-size: 1.2rem;
     }
 
+    /* ── TOAST ─────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      top: 6rem; right: 2rem;
+      z-index: 999;
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.4rem;
+      background: var(--bark);
+      border-left: 3px solid var(--oak);
+      box-shadow: 0 8px 32px rgba(42,31,21,.18);
+      max-width: 340px;
+      opacity: 0;
+      transform: translateY(-12px);
+      transition: opacity .35s ease, transform .35s ease;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .toast-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--oak);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white);
+      font-size: .85rem;
+    }
+    .toast-body strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 500;
+      color: var(--white);
+      letter-spacing: .01em;
+    }
+    .toast-body span {
+      font-size: .72rem; font-weight: 400;
+      color: rgba(241,236,223,.6);
+      letter-spacing: .04em;
+    }
+
     /* ── FOOTER ────────────────────────────────────── */
     footer {
       background: var(--bark);
@@ -1349,6 +1391,7 @@
             <option>Pose de parquet neuf</option>
             <option>Rénovation / ponçage</option>
             <option>Terrasse bois</option>
+            <option>Réparation</option>
             <option>Autre</option>
           </select>
         </div>
@@ -1500,6 +1543,7 @@
       .then(function() {
         document.getElementById('formContent').style.display = 'none';
         document.getElementById('formSuccess').style.display = 'block';
+        showToast();
       })
       .catch(function() {
         btn.disabled = false;
@@ -1595,6 +1639,22 @@
     updateUI();
     start();
   })();
+</script>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <div class="toast-icon">✓</div>
+  <div class="toast-body">
+    <strong>Message envoyé !</strong>
+    <span>Je vous recontacte sous 24h.</span>
+  </div>
+</div>
+
+<script>
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4000);
+  }
 </script>
 </body>
 </html>
