@@ -949,6 +949,8 @@
       .services-head > div:last-child .btn { display: inline-flex; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('dY-Gp0P70qkOe3Ug3');</script>
 </head>
 <body>
 
@@ -987,7 +989,7 @@
 <section id="hero">
   <div class="hero-left">
       <div class="hero-badge">
-        <span class="stat-num">25+</span>
+        <span class="stat-num">20+</span>
         <span class="stat-label">Ans d'expérience</span>
       </div>
     <h1>L'art du bois,<br><em>sublimé</em><br>chez vous</h1>
@@ -1118,9 +1120,6 @@
       </div>
     </div>
   </div>
-  <div style="text-align:center;margin-top:2.5rem;">
-    <a href="#contact" class="btn btn-primary">Demander un devis</a>
-  </div>
 </section>
 
 <!-- PROCESS -->
@@ -1203,7 +1202,7 @@
     </div>
     <div class="about-frame"></div>
     <div class="about-badge">
-      <strong>25+</strong>
+      <strong>20+</strong>
       <span>Ans d'expérience</span>
     </div>
   </div>
@@ -1211,7 +1210,7 @@
   <div class="about-content reveal">
     <p class="section-label">À propos</p>
     <h2>Passion du bois,<br>depuis <em>toujours</em></h2>
-    <p>Je suis Julien Gérard, artisan parqueteur installé à Bordeaux depuis 2004. Au fil de 25 ans de métier — en France, en Suisse ou encore l'italie — j'ai forgé un savoir-faire exigeant et ed qualité nourri l'amour du bois bien travaillé.</p>
+    <p>Je suis Julien Gérard, artisan parqueteur installé à Bordeaux depuis 2004. Au fil de 25 ans de métier — en France, en Suisse ou encore l'italie — j'ai forgé un savoir-faire exigeant et qualité nourri l'amour du bois bien travaillé.</p>
     <p>Pose de parquet massif, rénovation de parquets anciens, terrasse bois ou création sur-mesure — chaque projet est unique, et je le traite comme tel, du premier rendez-vous jusqu'à la dernière passe de finition.</p>
   </div>
 </section>
@@ -1223,7 +1222,6 @@
       <p class="section-label">Témoignages</p>
       <h2>Ce que disent<br><em>mes clients</em></h2>
     </div>
-    <p class="section-intro" style="max-width:340px">Plus de 850 familles m'ont fait confiance pour habiller leurs sols et leurs intérieurs.</p>
   </div>
 
   <div class="testi-track-outer">
@@ -1305,7 +1303,7 @@
         <div class="citem-line"></div>
         <div>
           <strong>Email</strong>
-          <a href="mailto:juliengérard.parquet@gmail.com">juliengérard.parquet@gmail.com</a>
+          <a href="mailto:juliengerard.parquet@gmail.com">juliengerard.parquet@gmail.com</a>
         </div>
       </div>
       <div class="contact-item">
@@ -1421,7 +1419,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2024 Julien Gérard Bois · SIRET 123 456 789 00012 · Assurance décennale souscrite</p>
+    <p>© 2026 Julien Gérard Bois · SIRET 478 261 928 00046 · Assurance décennale souscrite</p>
     <p><a href="#">Mentions légales</a></p>
   </div>
 </footer>
@@ -1471,8 +1469,21 @@
     let valid = true;
     required.forEach(f => { if (!f.value.trim()) { f.style.borderColor = 'rgba(180,60,40,.5)'; valid = false; } else { f.style.borderColor = ''; } });
     if (!valid) return;
-    document.getElementById('formContent').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
+
+    const btn = this.querySelector('.form-submit');
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+
+    emailjs.sendForm('service_8wde4he', 'template_3ee6dkc', this)
+      .then(function() {
+        document.getElementById('formContent').style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      })
+      .catch(function() {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer ma demande';
+        alert('Une erreur est survenue. Merci de réessayer ou de me contacter directement.');
+      });
   });
 </script>
 
