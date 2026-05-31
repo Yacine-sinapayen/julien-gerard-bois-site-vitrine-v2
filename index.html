@@ -1490,6 +1490,12 @@
     btn.disabled = true;
     btn.textContent = 'Envoi en cours…';
 
+    const delaiInput = this.querySelector('#delai');
+    if (delaiInput.value) {
+      const [y, m, d] = delaiInput.value.split('-');
+      delaiInput.value = new Date(y, m - 1, d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
     emailjs.sendForm('service_8wde4he', 'template_3ee6dkc', this)
       .then(function() {
         document.getElementById('formContent').style.display = 'none';
