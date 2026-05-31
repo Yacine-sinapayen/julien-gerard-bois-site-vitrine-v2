@@ -434,25 +434,19 @@
     .carousel-track {
       display: flex;
       height: 100%;
-      gap: 3px;
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       will-change: transform;
     }
     .carousel-slide {
-      min-width: calc(50% - 1.5px);
+      min-width: 100%;
       height: 100%;
       position: relative;
       flex-shrink: 0;
     }
-    @media (max-width: 640px) {
-      .carousel-slide { min-width: 100%; }
-      .portfolio-carousel { aspect-ratio: 1/1; }
-      .carousel-slide img { object-fit: contain; }
-    }
     .carousel-slide img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
     }
     .carousel-btn {
@@ -1593,7 +1587,7 @@
 </script>
 
 <script>
-  // Portfolio carousel — responsive (2 par page desktop, 1 mobile)
+  // Portfolio carousel
   (function() {
     const track   = document.getElementById('carouselTrack');
     const dotsEl  = document.getElementById('carouselDots');
@@ -1604,32 +1598,22 @@
     let timer;
     let startX    = 0;
 
-    function perPage() { return window.innerWidth <= 640 ? 1 : 2; }
-    function pages()   { return Math.ceil(total / perPage()); }
-
-    function buildDots() {
-      dotsEl.innerHTML = '';
-      for (let i = 0; i < pages(); i++) {
-        const d = document.createElement('button');
-        d.className = 'carousel-dot' + (i === current ? ' active' : '');
-        d.setAttribute('aria-label', 'Page ' + (i + 1));
-        d.addEventListener('click', () => { goTo(i); reset(); });
-        dotsEl.appendChild(d);
-      }
-    }
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Image ' + (i + 1));
+      d.addEventListener('click', () => { goTo(i); reset(); });
+      dotsEl.appendChild(d);
+    });
 
     function updateUI() {
-      const pp    = perPage();
-      const slideW = slides[0].offsetWidth + (pp > 1 ? 3 : 0);
-      track.style.transform = 'translateX(-' + (current * pp * slideW) + 'px)';
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
       dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-      const from = current * pp + 1;
-      const to   = Math.min((current + 1) * pp, total);
-      counter.textContent = from + (from < to ? '–' + to : '') + ' / ' + total;
+      counter.textContent = (current + 1) + ' / ' + total;
     }
 
     function goTo(idx) {
-      current = (idx + pages()) % pages();
+      current = (idx + total) % total;
       updateUI();
     }
 
@@ -1647,12 +1631,9 @@
       if (e.key === 'ArrowRight') { goTo(current + 1); reset(); }
     });
 
-    window.addEventListener('resize', () => { current = 0; buildDots(); updateUI(); });
-
     function start() { timer = setInterval(() => goTo(current + 1), 4500); }
     function reset() { clearInterval(timer); start(); }
 
-    buildDots();
     updateUI();
     start();
   })();
