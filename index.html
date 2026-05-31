@@ -426,7 +426,7 @@
       border-radius: 4px;
       overflow: hidden;
       background: var(--charcoal);
-      aspect-ratio: 16/9;
+      aspect-ratio: 4/3;
       max-height: min(620px, 65vh);
       width: 100%;
       margin: 0 auto;
@@ -434,13 +434,15 @@
     .carousel-track {
       display: flex;
       height: 100%;
+      gap: 3px;
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       will-change: transform;
     }
     .carousel-slide {
-      min-width: 100%;
+      min-width: calc(50% - 1.5px);
       height: 100%;
       position: relative;
+      flex-shrink: 0;
     }
     .carousel-slide img {
       width: 100%;
@@ -1586,48 +1588,50 @@
 </script>
 
 <script>
-  // Portfolio carousel
+  // Portfolio carousel — 2 slides per page
   (function() {
     const track   = document.getElementById('carouselTrack');
     const dotsEl  = document.getElementById('carouselDots');
     const counter = document.getElementById('carouselCounter');
     const slides  = track.querySelectorAll('.carousel-slide');
     const total   = slides.length;
+    const perPage = 2;
+    const pages   = Math.ceil(total / perPage);
     let current   = 0;
     let timer;
     let startX    = 0;
 
-    // Build dots
-    slides.forEach((_, i) => {
+    for (let i = 0; i < pages; i++) {
       const d = document.createElement('button');
       d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      d.setAttribute('aria-label', 'Image ' + (i + 1));
+      d.setAttribute('aria-label', 'Page ' + (i + 1));
       d.addEventListener('click', () => { goTo(i); reset(); });
       dotsEl.appendChild(d);
-    });
+    }
 
     function updateUI() {
-      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      const slideW = slides[0].offsetWidth + 3;
+      track.style.transform = 'translateX(-' + (current * perPage * slideW) + 'px)';
       dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-      counter.textContent = (current + 1) + ' / ' + total;
+      const from = current * perPage + 1;
+      const to   = Math.min((current + 1) * perPage, total);
+      counter.textContent = from + (from < to ? '–' + to : '') + ' / ' + total;
     }
 
     function goTo(idx) {
-      current = (idx + total) % total;
+      current = (idx + pages) % pages;
       updateUI();
     }
 
     document.getElementById('carouselPrev').addEventListener('click', () => { goTo(current - 1); reset(); });
     document.getElementById('carouselNext').addEventListener('click', () => { goTo(current + 1); reset(); });
 
-    // Touch swipe
     track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
     track.addEventListener('touchend', e => {
       const diff = startX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 40) { goTo(current + (diff > 0 ? 1 : -1)); reset(); }
     }, { passive: true });
 
-    // Keyboard
     document.getElementById('portfolioCarousel').addEventListener('keydown', e => {
       if (e.key === 'ArrowLeft') { goTo(current - 1); reset(); }
       if (e.key === 'ArrowRight') { goTo(current + 1); reset(); }
